@@ -1,12 +1,14 @@
+// 🌍 Planetary Dashboard Data Integration
 const map = L.map('map').setView([20, 0], 2);
 
-// 📜 Base Layer: OpenStreetMap
+// 🗺️ Base Layer: OpenStreetMap
 const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors',
   maxZoom: 18,
 });
+osm.addTo(map);
 
-// 🛰️ Satellite imagery (no labels)
+// 🌐 Satellite Layer
 const satellite = L.tileLayer(
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   {
@@ -15,7 +17,7 @@ const satellite = L.tileLayer(
   }
 );
 
-// 📜 Labels (names and boundaries)
+// 🏷️ Labels
 const labels = L.tileLayer(
   'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
   {
@@ -24,7 +26,7 @@ const labels = L.tileLayer(
   }
 );
 
-// 🛰️ NASA GIBS Layer (existing one)
+// 🛰️ NASA GIBS Layer
 const nasaLayer = L.tileLayer(
   'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MOD_LSTD_CLIM_M/GoogleMapsCompatible_Level9/{z}/{y}/{x}.png',
   {
@@ -35,18 +37,14 @@ const nasaLayer = L.tileLayer(
     noWrap: true,
   }
 );
+nasaLayer.addTo(map);
 
-// 🧭 Add the base layers to the map and set the initial view
-osm.addTo(map);  // Default base layer
-nasaLayer.addTo(map); // Optional if you still want NASA layers
-
-// 📍 Layer control for toggling between map layers
 L.control.layers({
   "OpenStreetMap": osm,
   "Satellite": L.layerGroup([satellite, labels]),
 }).addTo(map);
 
-// 📍 Hover Info Box
+// 📌 Coordinate Info Panel
 const info = L.control();
 info.onAdd = function () {
   this._div = L.DomUtil.create('div', 'info');
@@ -62,12 +60,10 @@ info.update = function (props) {
 };
 info.addTo(map);
 
-// 🧭 Mouse move event to update info box
 map.on('mousemove', function (e) {
   info.update({ lat: e.latlng.lat, lng: e.latlng.lng });
 });
 
-// 🖱️ Click event to get place name and weather
 map.on('click', function (e) {
   const lat = e.latlng.lat.toFixed(2);
   const lng = e.latlng.lng.toFixed(2);
@@ -77,15 +73,14 @@ map.on('click', function (e) {
     .then(response => response.json())
     .then(data => {
       const locationName = data.address.city || data.address.town || data.address.village || data.display_name || `Lat: ${lat}, Lng: ${lng}`;
-      displayWeather(lat, lng, locationName);
+      displayEnvironmentData(lat, lng, locationName);
     })
     .catch(err => {
       console.error("Error fetching location name:", err);
-      displayWeather(lat, lng, `Lat: ${lat}, Lng: ${lng}`);
+      displayEnvironmentData(lat, lng, `Lat: ${lat}, Lng: ${lng}`);
     });
 });
 
-// 🔍 Search logic
 function searchLocation() {
   const location = document.getElementById('location-search').value;
   const errorBox = document.getElementById('search-error');
@@ -106,8 +101,8 @@ function searchLocation() {
         return;
       }
       const { lat, lon, display_name } = data[0];
-      map.setView([lat, lon], 8);  // Zoom to location
-      displayWeather(lat, lon, display_name);
+      map.setView([lat, lon], 8);
+      displayEnvironmentData(lat, lon, display_name);
     })
     .catch(err => {
       errorBox.textContent = "Error searching location.";
@@ -115,33 +110,45 @@ function searchLocation() {
     });
 }
 
-// Fetch and display weather data
-function displayWeather(lat, lon, locationName) {
-  const apiKey = 'c6b1ce204c3aaeadd0c76b7eb4d06544';  // Your API key
-  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+async function displayEnvironmentData(lat, lon, locationName) {
+  const resultPanel = document.getElementById("search-result");
+  const apiKey = 'c6b1ce204c3aaeadd0c76b7eb4d06544';
+  const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  const carbonURL = `https://www.climatewatchdata.org/api/v1/data/historical_emissions?country=IND&gas=CO2&source=CAIT&sector=Total%20including%20LUCF`;
+  const airURL = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
-  fetch(weatherUrl)
-    .then(response => response.json())
-    .then(data => {
-      const { main, weather, wind, clouds, visibility, sys } = data;
-      const resultPanel = document.getElementById("search-result");
-      resultPanel.innerHTML = `
-        <h3>📍 ${locationName}</h3>
-        <p><b>🌡️ Temperature:</b> ${main.temp}°C</p>
-        <p><b>🌤️ Weather:</b> ${weather[0].main} - ${weather[0].description}</p>
-        <p><b>💨 Wind:</b> ${wind.speed} m/s</p>
-        <p><b>🌫️ Visibility:</b> ${visibility} meters</p>
-        <p><b>☁️ Cloudiness:</b> ${clouds.all}%</p>
-        <p><b>💧 Humidity:</b> ${main.humidity}%</p>
-        <p><b>📅 Sunrise:</b> ${new Date(sys.sunrise * 1000).toLocaleTimeString()}</p>
-        <p><b>🌇 Sunset:</b> ${new Date(sys.sunset * 1000).toLocaleTimeString()}</p>
-      `;
-    })
-    .catch(err => {
-      console.error("Error fetching weather data:", err);
-      const resultPanel = document.getElementById("search-result");
-      resultPanel.innerHTML = "<p>❌ Failed to load weather data.</p>";
-    });
+  try {
+    const [weatherRes, carbonRes, airRes] = await Promise.all([
+      fetch(weatherURL),
+      fetch(carbonURL),
+      fetch(airURL)
+    ]);
+
+    const weatherData = await weatherRes.json();
+    const carbonData = await carbonRes.json();
+    const airData = await airRes.json();
+
+    const temp = weatherData.main.temp;
+    const humidity = weatherData.main.humidity;
+    const co2Emission = carbonData.data && carbonData.data.length > 0 ? carbonData.data[0].emissions.slice(-1)[0].value : 'N/A';
+
+    const aqiValue = airData.list[0].main.aqi;
+    const aqiText = ['Good', 'Fair', 'Moderate', 'Poor', 'Very Poor'][aqiValue - 1] || 'N/A';
+
+    resultPanel.innerHTML = `
+      <h3>📍 ${locationName}</h3>
+      <p><b>🌡️ Temperature:</b> ${temp} °C</p>
+      <p><b>💧 Humidity:</b> ${humidity}%</p>
+      <p><b>🔥 Carbon Emissions (India):</b> ${co2Emission} Mt</p>
+      <p><b>💨 Air Quality Index (AQI):</b> ${aqiText} (${aqiValue})</p>
+    `;
+  } catch (err) {
+    console.error("Error fetching environment data:", err);
+    resultPanel.innerHTML = `<p>⚠️ Error loading environment data.</p>`;
+  }
 }
 
 document.getElementById('search-btn').addEventListener('click', searchLocation);
+document.getElementById('toggle-btn').addEventListener('click', function () {
+  document.querySelector('.nav-links').classList.toggle('active');
+});
