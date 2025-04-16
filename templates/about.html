@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+
+    <title>About Us</title>
+    <style>/* Reset some defaults */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #FBF6E9;
+            color: #1e1e1e;
+            line-height: 1.6;
+            padding: 40px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #118B50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        ol {
+            list-style: none;
+            counter-reset: item;
+            padding: 0;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+        
+        .headtopic {
+            background-color: #E3F0AF;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            border-left: 10px solid #118B50;
+            border-radius: 8px;
+            counter-increment: item;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        
+        .headtopic:hover {
+            transform: scale(1.02);
+        }
+        
+        .headtopic::before {
+            content: counter(item);
+            font-weight: bold;
+            color: #5DB996;
+            margin-right: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .headtopic h4 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: #118B50;
+        }
+        
+        .headtopic p {
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        strong {
+            color: #5DB996;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+        
+            h1 {
+                font-size: 2rem;
+            }
+        
+            p, .headtopic p {
+                font-size: 1rem;
+            }
+        }</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">EcoGraph</div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'details' %}">Details</a></li>
+            <li><a href="{% url 'newslater' %}">Newsletter</a></li>
+        </ul>
+    </nav>
+    <h1>About EcoGraph</h1>
+    <p>EcoGraph is a platform dedicated to visualizing ecological data.</p>
+    <p><br>Hey there, you seem to be curious about the current environmental status. So, congratulations, you are on to a good visual and understanding treat.</p>
+    <p>Welcome to <strong>EcoGraph</strong> — a project I created to bring real-time environmental insights to everyone. With the help of `NASA Earth Data APIs, I've built a platform that focuses on India's environmental health, combining science with simplicity.</p>
+
+
+
+    <p>Here's what you can explore on EcoGraph:</p>
+    <ol>
+        <h4><li class='headtopic'>⁠Live Temperature Updates</li></h4>
+        <p>I show real-time temperature data across different Indian states, so you can stay informed about weather conditions as they change. I provide live temperature readings across all Indian states. This isn't just about knowing how hot or cold it is — it's about understanding regional climate variations, identifying heatwaves, and monitoring long-term trends that are crucial for climate research, agriculture, and disaster preparedness.</p>
+
+        <h4><li class='headtopic'>⁠Carbon Emissions by Region</li></h4>
+        <p>Curious about how much carbon is being released in your area? I’ve made it easy to track emissions and understand their impact. Carbon emissions are one of the leading causes of climate change. With EcoGraph, you can explore emission levels across different parts of India. Whether you're comparing cities or observing rural patterns, this data helps illustrate how human activity affects our atmosphere — and what steps might be taken to reduce it</p>
+
+        <h4><li class='headtopic'>⁠Forest Cover Loss</li></h4>
+        <p>Deforestation is a big issue, and I help you visualize where forest cover is decreasing, using reliable satellite data.Forests are the lungs of our planet. EcoGraph offers visual data on forest cover depletion, allowing you to see where and how fast deforestation is occurring. This feature is vital for conservationists, policymakers, and anyone who cares about preserving biodiversity and natural habitats
+        </p>
+        
+        <h4><li class='headtopic'>Air and Water Quality</li></h4>
+        <p> provide up-to-date air and water quality reports, so you know just how clean your surroundings really are. Clean air and water are fundamental rights. On EcoGraph, I track pollutants like PM2.5, NO2, and waterborne toxins — giving you a clear picture of environmental quality in various regions. This data helps raise awareness about pollution hotspots and supports efforts to improve living conditions</p>
+        
+        <h4><li class='headtopic'>⁠Wildlife Population Trends</li></h4>
+        <p>Get insights into how wildlife populations are changing across regions. It's my way of supporting biodiversity awareness.Wildlife is an indicator of ecosystem health. I include data on population trends for key species, helping to highlight areas where conservation is working — and where it’s needed most. This feature supports both awareness and action in preserving India's rich biodiversity</p>
+        
+        <h4><li class='headtopic'>Ocean Acidification</li></h4>
+        <p>I even go beyond land — showing how ocean acid levels are changing and what that means for marine ecosystems.Ocean acidification might be out of sight, but it’s one of the most pressing environmental threats. I show how ocean pH levels are changing, especially along coastal regions. This data is crucial for understanding marine ecosystem shifts, coral reef health, and the broader impact of CO₂ on ocean life.
+        </p>
+    </ol>
+</body>
+</html>

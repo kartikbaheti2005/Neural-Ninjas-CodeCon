@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planetary Health Dashboard 🌍</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <!-- 🌍 Navbar -->
+  <nav class="navbar">
+    <div class="logo">EcoGraph</div>
+    <button class="toggle-btn" id="toggle-btn">☰</button>
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'details' %}">Details</a></li>
+      <li><a href="{% url 'newslater' %}">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-container">
+    <!-- 📄 LEFT PANEL -->
+    <div class="left-panel" id="info-panel">
+      <div id="search-container">
+        <input type="text" id="location-search" placeholder="🔍 Search for a place..." />
+        <button id="search-btn">Go</button>
+        <div id="search-error"></div>
+        <div id="loading-spinner" class="hidden">Loading...</div>
+      </div>
+      <div id="search-result">
+        <h2>Planetary Health Dashboard</h2>
+        <p>This dashboard brings together live satellite and environmental data to help you explore climate change, pollution, biodiversity loss, and more.</p>
+        <ul>
+          <li>🌡️ Live temperature layers from NASA GIBS</li>
+          <li>🛰️ Click on map to explore local data</li>
+          <li>🔍 Use search to go to any place</li>
+          <li>📊 More details on the "Details" page</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 🗺️ MAP ON RIGHT -->
+    <div id="map"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="{% static 'js/map.js' %}"></script>
+</body>
+</html>

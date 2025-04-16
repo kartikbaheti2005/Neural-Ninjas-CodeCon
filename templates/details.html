@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <title>Details</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">EcoGraph</div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'details' %}">Details</a></li>
+            <li><a href="{% url 'newslater' %}">Newsletter</a></li>
+        </ul>
+    </nav>
+    <h1>Details Page</h1>
+    <p>This page contains detailed information about the ecological data.</p>
+</body>
+</html>
