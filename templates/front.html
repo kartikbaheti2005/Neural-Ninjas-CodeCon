@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Planetary Health Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url("assets/background1.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      padding: 50px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 3.2em;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc, 0 0 20px #00cc99;
+      animation: glow 3s infinite alternate;
+    }
+
+    header h2 {
+      font-size: 2em;
+      margin-top: 10px;
+      color: #fff176;
+      text-shadow: 0 0 5px #fff176;
+    }
+
+    header p {
+      font-size: 1.2em;
+      color: #d0f0e0;
+      max-width: 700px;
+      margin: 20px auto 0;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 15px;
+      padding: 20px;
+      width: 250px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #aefbd3;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      color: #f0fef9;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .btn {
+      background-color: #00ffcc;
+      color: black;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00ffcc, 0 0 20px #00cc99;
+    }
+
+    .btn:hover {
+      background-color: #00cc99;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00ffcc, 0 0 30px #00cc99;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffcc, 0 0 20px #00cc99;
+      }
+      to {
+        text-shadow: 0 0 20px #00ccff, 0 0 30px #00cc99;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <header>
+      <h1>WELCOME TO ECO-GRAPH</h1>
+      <h2>The Planetary Health Dashboard</h2>
+      <p>Visualizing Earth’s vital signs — from temperature & biodiversity to pollution and more.</p>
+    </header>
+
+    <section class="features">
+      <div class="card">
+        <h3>🌡 Temperature & Weather</h3>
+        <p>Track real-time temperature, rainfall, wind speed, and forecast globally.</p>
+      </div>
+      <div class="card">
+        <h3>🦋 Biodiversity Loss</h3>
+        <p>Monitor endangered species and vanishing ecosystems across regions.</p>
+      </div>
+      <div class="card">
+        <h3>💨 Pollution Levels</h3>
+        <p>Check air and water pollution metrics via live satellite data.</p>
+      </div>
+      <div class="card">
+        <h3>🌅 Sunrise & Sunset</h3>
+        <p>Get local sunrise and sunset timings for any part of the planet.</p>
+      </div>
+    </section>
+
+    <div class="buttons">
+        <button class="btn" onclick="window.location.href='{% url 'home' %}'">Enter Dashboard</button>
+      <button class="btn" onclick="window.location.href='{% url 'about' %}'">Learn More</button>
+    </div>
+  </div>
+</body>
+</html>

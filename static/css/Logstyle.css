@@ -1,0 +1,88 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-image: url("../images/bg-login.jpg");
+    background-size: cover;
+    background-position: center;
+    /* backdrop-filter: blur(0px); */
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* semi-transparent overlay */
+  }
+  
+  .form-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: white;
+  }
+  
+  .form-box h1 {
+    margin-bottom: 1rem;
+  }
+  
+  .form-box span {
+    color: #00e676;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  
+  input::placeholder {
+    color: #eee;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #00e676;
+    border: none;
+    color: black;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .divider {
+    margin: 1rem 0;
+    color: #ccc;
+  }
+  
+  .social-buttons a {
+    display: block;
+    text-decoration: none;
+    margin: 10px 0;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: background 0.3s ease;
+  }
+  
+  .social-buttons a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .google { background-image: url('https://img.icons8.com/color/16/000000/google-logo.png'); background-repeat: no-repeat; background-position: 10px center; padding-left: 40px; }
+  .microsoft { background-image: url('https://img.icons8.com/color/16/000000/microsoft.png'); background-repeat: no-repeat; background-position: 10px center; padding-left: 40px; }
+  .apple { background-image: url('https://img.icons8.com/ios-filled/16/ffffff/mac-os.png'); background-repeat: no-repeat; background-position: 10px center; padding-left: 40px; }
+  .phone { background-image: url('https://img.icons8.com/ios-filled/16/ffffff/phone.png'); background-repeat: no-repeat; background-position: 10px center; padding-left: 40px; }

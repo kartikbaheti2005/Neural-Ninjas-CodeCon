@@ -9,6 +9,12 @@ def about(request):
 def details(request):
     return render(request, 'details.html')
 
-def newslater(request):
-    return render(request, 'newslater.html')
 
+def login(request):
+    return render(request, 'login.html')
+
+def register(request):
+    return render(request, 'register.html')
+
+def front(request):
+    return render(request, 'front.html')
